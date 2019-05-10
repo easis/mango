@@ -32,10 +32,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "mango_server.h"
+
 /*
  * 
  */
-int main(int argc, char** argv) {
+int main(int argc, char** argv) {    
+    printf("[mango] - START\n");
+
+    if(1) {
+        printf("[mango][test1] adding endpoints\n");
+        
+        mango_server s = mango_server_create();
+        
+        mango_endpoint ep1 = {.address = "127.0.0.1", .port = 1337};
+        mango_endpoint ep2 = {.address = "127.0.0.1", .port = 1338};
+        
+        bool ep1_added = mango_add_endpoint(&s, ep1);
+        printf("[mango]\t[test1] add ep1 - %s (total: %d)\n", (ep1_added ? "OK" : "ERROR"), s.endpoint_count);
+        
+        bool ep2_added = mango_add_endpoint(&s, ep2);
+        printf("[mango]\t[test1] add ep2 - %s (total: %d)\n", (ep2_added ? "OK" : "ERROR"), s.endpoint_count);
+        
+        bool ep1_added_again = mango_add_endpoint(&s, ep1);
+        printf("[mango]\t[test1] add ep1 again - %s (total: %d)\n", (!ep1_added_again ? "OK" : "ERROR"), s.endpoint_count);
+        
+        bool ep2_added_again = mango_add_endpoint(&s, ep2);
+        printf("[mango]\t[test1] add ep2 again - %s (total: %d)\n", (!ep2_added_again ? "OK" : "ERROR"), s.endpoint_count);
+    
+    }
+    
+    printf("[mango] - END\n");
 
     return (EXIT_SUCCESS);
 }

@@ -32,10 +32,20 @@
 #ifndef MANGO_H
 #define MANGO_H
 
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+#include <unistd.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+    
+    
 #ifdef __cplusplus
 }
 #endif
