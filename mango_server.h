@@ -32,6 +32,8 @@
 #ifndef MANGO_SERVER_H
 #define MANGO_SERVER_H
 
+#include "mango.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,15 +41,20 @@ extern "C" {
     typedef struct mango_endpoint_t {
         char* address;
         uint32_t port;
+        
+        void* next_endpoint;
     } mango_endpoint;
 
     typedef struct mango_server_t {
         mango_endpoint* endpoints;
-        uint32_t endpoint_count;
+        uint8_t endpoint_count;
     } mango_server;
     
-    mango_server* create_server();
-    bool mango_add_endpoint(mango_endpoint endpoint);
+    mango_server mango_server_create();
+    
+    bool mango_add_endpoint(mango_server* server, mango_endpoint endpoint);
+    bool mango_add_endpoint_by_address(mango_server* server, char* address, uint32_t port);
+    bool mango_endpoint_exists(mango_server* server, mango_endpoint endpoint);
 
 
 
