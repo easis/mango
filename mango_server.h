@@ -42,7 +42,7 @@ extern "C" {
         char* address;
         uint32_t port;
         
-        void* next_endpoint;
+        struct mango_endpoint_t* next_endpoint;
     } mango_endpoint;
 
     typedef struct mango_server_t {
@@ -52,10 +52,13 @@ extern "C" {
     
     mango_server mango_server_create();
     
-    bool mango_add_endpoint(mango_server* server, mango_endpoint endpoint);
-    bool mango_add_endpoint_by_address(mango_server* server, char* address, uint32_t port);
-    bool mango_endpoint_exists(mango_server* server, mango_endpoint endpoint);
-
+    bool mango_add_endpoint(mango_server* server, mango_endpoint* endpoint);
+    bool mango_endpoint_exists(mango_server* server, mango_endpoint* endpoint);
+    
+    bool mango_remove_endpoint(mango_server* server, mango_endpoint* endpoint);
+    void mango_remove_all_endpoints(mango_server* server);
+    void mango_remove_endpoints_by_address(mango_server* server, char* address);
+    void mango_remove_endpoints_by_port(mango_server* server, uint32_t port);
 
 
 #ifdef __cplusplus
